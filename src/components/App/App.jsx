@@ -2,7 +2,7 @@ import React from "react";
 import AppRoutes from "../routes/AppRoutes";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
-import Footer from "../Footer/footer";
+import Footer from "../Footer/Footer";
 
 const App = () => {
   return (

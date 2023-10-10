@@ -5,6 +5,7 @@ import axios from "axios";
 const initialState = {
   list: [],
   isLoading: false,
+  filtered: [],
 };
 
 export const getProducts = createAsyncThunk("products/getProducts", async (_, thunkAPI) => {
@@ -20,6 +21,12 @@ export const getProducts = createAsyncThunk("products/getProducts", async (_, th
 export const productsSlice = createSlice({
   name: "products",
   initialState,
+  reducers: {
+    filterByPrice: (state, { payload }) => {
+      state.filtered = state.list.filter((product) => product.price < payload);
+    },
+  },
+
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
       state.list = action.payload;
@@ -35,5 +42,7 @@ export const productsSlice = createSlice({
     });
   },
 });
+
+export const { filterByPrice } = productsSlice.actions;
 
 export default productsSlice.reducer;

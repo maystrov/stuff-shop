@@ -1,19 +1,18 @@
 import React from "react";
-import AppRoutes from "../routes/AppRoutes";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
+import AppRoutes from "../routes/AppRoutes.jsx";
 
 const App = () => {
   return (
     <div className="app">
       <Header />
 
-      <div className="ccontainer">
+      <div className="container">
         <Sidebar />
         <AppRoutes />
       </div>
-
       <Footer />
     </div>
   );

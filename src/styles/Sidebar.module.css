@@ -23,6 +23,7 @@
   font-size: 14px;
   line-height: 17px;
   text-transform: capitalize;
+  cursor: pointer;
 }
 
 .link:hover {

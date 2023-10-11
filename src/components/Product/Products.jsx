@@ -10,8 +10,6 @@ const Products = ({ title, amount, style = {}, products = [] }) => {
   const list = products.slice(0, amount);
   const dispatch = useDispatch();
 
-  console.log(list);
-
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);

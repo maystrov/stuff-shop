@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { ROUTES } from "../../utils/routes";
 
 import styles from "../../styles/Product.module.css";
+import { addItemToCart } from "../../features/user/userSlice";
 
 // import { addItemToCart } from "../../features/user/userSlice";
 
@@ -13,7 +14,19 @@ const SIZES = [4, 4.5, 5];
 const Product = (item) => {
   const { title, price, images, description } = item;
 
-  const currentImage = images[0];
+  const [currentImage, setCurrentImage] = useState();
+  const [currentSize, setCurrentSize] = useState();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!images.length) return;
+    setCurrentImage(images[0]);
+  }, [images]);
+
+  const handleAddTocart = () => {
+    dispatch(addItemToCart(item));
+  };
 
   return (
     <section className={styles.product}>
@@ -25,7 +38,7 @@ const Product = (item) => {
               key={i}
               className={styles.image}
               style={{ backgroundImage: `url(${image})` }}
-              onClick={() => {}}
+              onClick={() => setCurrentImage(image)}
             />
           ))}
         </div>
@@ -41,7 +54,11 @@ const Product = (item) => {
 
           <div className={styles.list}>
             {SIZES.map((size) => (
-              <div onClick={() => {}} className={`${styles.size} `} key={size}>
+              <div
+                onClick={() => setCurrentSize(size)}
+                className={`${styles.size} ${currentSize === size ? styles.active : ""}  `}
+                key={size}
+              >
                 {size}
               </div>
             ))}
@@ -51,7 +68,7 @@ const Product = (item) => {
         <p className={styles.description}>{description}</p>
 
         <div className={styles.actions}>
-          <button onClick={() => {}} className={styles.add}>
+          <button onClick={handleAddTocart} className={styles.add} disabled={!currentSize}>
             Add to cart
           </button>
           <button className={styles.favourite}>Add to favourites</button>

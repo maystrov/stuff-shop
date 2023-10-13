@@ -2,22 +2,24 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../utils/constants";
 import axios from "axios";
 
-// export const getCategories = createAsyncThunk("categories/getCategories", async (_, thunkAPI) => {
-//   try {
-//     const res = await axios(`${BASE_URL}/categories`);
-//     return res.data;
-//   } catch (error) {
-//     console.log(error);
-//     return thunkAPI.rejectWithValue(error);
-//   }
-// });
+export const createUser = createAsyncThunk("users/createUser", async (payload, thunkAPI) => {
+  try {
+    const res = await axios(`${BASE_URL}/users`, payload);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    currentUser: [],
+    currentUser: null,
     cart: [],
     isLoading: false,
+    formType: "signup",
+    showForm: false,
   },
 
   reducers: {
@@ -33,22 +35,25 @@ export const userSlice = createSlice({
       } else newCart.push({ ...payload, quantity: 1 });
       state.cart = newCart;
     },
+    toggleForm: (state, { payload }) => {
+      state.showForm = payload;
+    },
   },
-  //   extraReducers: (builder) => {
-  // builder.addCase(getCategories.fulfilled, (state, action) => {
-  //   state.list = action.payload;
-  //   state.isLoading = false;
-  // });
-  // builder.addCase(getCategories.pending, (state) => {
-  //   state.isLoading = true;
-  // });
-  // builder.addCase(getCategories.rejected, (state) => {
-  //   state.isLoading = false;
-  //   alert("Cannot load page!");
-  // });
-  //   },
+  extraReducers: (builder) => {
+    builder.addCase(createUser.fulfilled, (state, action) => {
+      state.currentUser = action.payload;
+      //   state.isLoading = false;
+    });
+    // builder.addCase(getCategories.pending, (state) => {
+    //   state.isLoading = true;
+    // });
+    // builder.addCase(getCategories.rejected, (state) => {
+    //   state.isLoading = false;
+    //   alert("Cannot load page!");
+    // });
+  },
 });
 
-export const { addItemToCart } = userSlice.actions;
+export const { addItemToCart, toggleForm } = userSlice.actions;
 
 export default userSlice.reducer;

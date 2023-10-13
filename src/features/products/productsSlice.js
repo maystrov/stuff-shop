@@ -8,7 +8,6 @@ const initialState = {
   isLoading: false,
   filtered: [],
   related: [],
-  isLoading: false,
 };
 
 export const getProducts = createAsyncThunk("products/getProducts", async (_, thunkAPI) => {

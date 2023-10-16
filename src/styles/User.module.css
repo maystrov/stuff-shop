@@ -76,3 +76,16 @@
 .link:hover {
   color: var(--light);
 }
+
+.error {
+  border: 1px solid rgb(211, 106, 106); /* Исправлено: добавлено правильное значение цвета */
+  border-radius: 10px; /* Исправлено: правильно указан border-radius */
+  color: rgb(211, 106, 106);
+}
+
+.errorMessage {
+  color: rgb(211, 106, 106);
+  line-height: 0;
+  font-size: 14px;
+  padding-left: 10px;
+}

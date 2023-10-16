@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "../../styles/Header.module.css";
 import { Link } from "react-router-dom";
@@ -7,12 +7,20 @@ import { ROUTES } from "../../utils/routes";
 
 import LOGO from "../../images/logo.svg";
 
-import AVATAR from "../../images/avatar.jpg"; // Импортировать изображение аватара напрямую
+import AVATAR from "../../images/avatar.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleForm } from "../../features/user/userSlice";
 
 const Header = () => {
   const { currentUser } = useSelector(({ user }) => user);
+
+  const [user, setUser] = useState({ name: "Guest", avatar: AVATAR });
+
+  useEffect(() => {
+    if (!currentUser) return;
+    setUser(currentUser);
+  }, [currentUser]);
+
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -28,8 +36,8 @@ const Header = () => {
 
       <div className={styles.info}>
         <div className={styles.user} onClick={handleClick}>
-          <div className={styles.avatar} style={{ backgroundImage: `url(${AVATAR})` }} />
-          <div className={styles.username}>Guest</div>
+          <div className={styles.avatar} style={{ backgroundImage: `url(${user.avatar})` }} />
+          <div className={styles.username}>{user.name}</div>
         </div>
 
         <form className={styles.form}>
@@ -48,7 +56,6 @@ const Header = () => {
               value=""
             />
           </div>
-
           {false && <div className={styles.box}></div>}
         </form>
 

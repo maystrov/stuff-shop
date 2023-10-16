@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import styles from "../../styles/User.module.css";
-import { toggleForm } from "./userSlice";
+import { createUser, toggleForm } from "./userSlice";
 import { useDispatch } from "react-redux";
 
 const UserSignupForm = () => {
@@ -12,10 +12,31 @@ const UserSignupForm = () => {
     avatar: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   const dispatch = useDispatch();
 
   const handleChange = ({ target: { value, name } }) => {
     setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: null });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const validationErrors = {};
+
+    Object.keys(values).forEach((key) => {
+      if (!values[key]) {
+        validationErrors[key] = "error";
+      }
+    });
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      dispatch(createUser(values));
+      dispatch(toggleForm(false));
+    }
   };
 
   return (
@@ -28,8 +49,8 @@ const UserSignupForm = () => {
 
       <div className={styles.title}>Sign Up</div>
 
-      <form className={styles.form}>
-        <div className={styles.group}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={`${styles.group} ${errors.email && styles.error}`}>
           <input
             type="email"
             placeholder="Your email"
@@ -37,11 +58,11 @@ const UserSignupForm = () => {
             value={values.email}
             autoComplete="off"
             onChange={handleChange}
-            required
           />
         </div>
+        {errors.email && <div className={styles.errorMessage}>Fill email field</div>}
 
-        <div className={styles.group}>
+        <div className={`${styles.group} ${errors.name && styles.error}`}>
           <input
             type="name"
             placeholder="Your name"
@@ -49,11 +70,11 @@ const UserSignupForm = () => {
             value={values.name}
             autoComplete="off"
             onChange={handleChange}
-            required
           />
         </div>
+        {errors.name && <div className={styles.errorMessage}>Fill name field</div>}
 
-        <div className={styles.group}>
+        <div className={`${styles.group} ${errors.password && styles.error}`}>
           <input
             type="password"
             placeholder="Your password"
@@ -61,21 +82,22 @@ const UserSignupForm = () => {
             value={values.password}
             autoComplete="off"
             onChange={handleChange}
-            required
           />
         </div>
+        {errors.password && <div className={styles.errorMessage}>Fill password field</div>}
 
-        <div className={styles.group}>
+        <div className={`${styles.group} `}>
           <input
+            className={`${errors.avatar && styles.error}`}
             type="avatar"
             placeholder="Your avatar"
             name="avatar"
             value={values.avatar}
             autoComplete="off"
             onChange={handleChange}
-            required
           />
         </div>
+        {errors.avatar && <p className={styles.errorMessage}>Fill avatar field</p>}
 
         <div className={styles.link}>I already have an account</div>
 

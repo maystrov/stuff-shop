@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 
 import styles from "../../styles/User.module.css";
-import { createUser } from "./userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { loginUser, toggleForm } from "./userSlice";
+import { useDispatch } from "react-redux";
 
 const UserSignupForm = ({ closeForm, toggleCurrentFormType }) => {
   const [values, setValues] = useState({
-    name: "",
     email: "",
     password: "",
-    avatar: "",
   });
 
-  const dispatch = useDispatch();
-
   const [errors, setErrors] = useState({});
-  const { formType } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
 
   const handleChange = ({ target: { value, name } }) => {
     setValues({ ...values, [name]: value });
@@ -35,20 +32,20 @@ const UserSignupForm = ({ closeForm, toggleCurrentFormType }) => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      dispatch(createUser(values));
+      dispatch(loginUser(values));
       closeForm();
     }
   };
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.close} onClick={closeForm}>
+      <div className={styles.close} onClick={() => dispatch(toggleForm(false))}>
         <svg className="icon">
           <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#close`} />
         </svg>
       </div>
 
-      <div className={styles.title}>Sign Up</div>
+      <div className={styles.title}>Log In</div>
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={`${styles.group} ${errors.email && styles.error}`}>
@@ -63,18 +60,6 @@ const UserSignupForm = ({ closeForm, toggleCurrentFormType }) => {
         </div>
         {errors.email && <div className={styles.errorMessage}>Fill email field</div>}
 
-        <div className={`${styles.group} ${errors.name && styles.error}`}>
-          <input
-            type="name"
-            placeholder="Your name"
-            name="name"
-            value={values.name}
-            autoComplete="off"
-            onChange={handleChange}
-          />
-        </div>
-        {errors.name && <div className={styles.errorMessage}>Fill name field</div>}
-
         <div className={`${styles.group} ${errors.password && styles.error}`}>
           <input
             type="password"
@@ -87,25 +72,12 @@ const UserSignupForm = ({ closeForm, toggleCurrentFormType }) => {
         </div>
         {errors.password && <div className={styles.errorMessage}>Fill password field</div>}
 
-        <div className={`${styles.group} `}>
-          <input
-            className={`${errors.avatar && styles.error}`}
-            type="avatar"
-            placeholder="Your avatar"
-            name="avatar"
-            value={values.avatar}
-            autoComplete="off"
-            onChange={handleChange}
-          />
-        </div>
-        {errors.avatar && <p className={styles.errorMessage}>Fill avatar field</p>}
-
-        <div className={styles.link} onClick={() => toggleCurrentFormType("login")}>
-          I already have an account
+        <div className={styles.link} onClick={() => toggleCurrentFormType("signup")}>
+          Create an account
         </div>
 
         <button type="submit" className={styles.submit}>
-          Create an account
+          Login
         </button>
       </form>
     </div>

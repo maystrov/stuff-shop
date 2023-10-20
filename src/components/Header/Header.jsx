@@ -20,7 +20,6 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const { data, isLoading } = useGetProductsQuery({ title: searchValue });
-  console.log(data);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

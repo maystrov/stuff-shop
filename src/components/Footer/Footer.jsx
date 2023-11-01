@@ -22,12 +22,12 @@ const Footer = () => {
       </div>
 
       <div className={styles.socials}>
-        <a href="https://instagram.com" target="_blank" rel="noreferrer">
+        <a href="https://instagram.com/jekamai" target="_blank" rel="noreferrer">
           <svg className="icon">
             <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#instagram`} />
           </svg>
         </a>
-        <a href="https://youtube.com" target="_blank" rel="noreferrer">
+        <a href="https://www.youtube.com/@user-hm3lt3yz3k" target="_blank" rel="noreferrer">
           <svg className="icon">
             <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#youtube`} />
           </svg>

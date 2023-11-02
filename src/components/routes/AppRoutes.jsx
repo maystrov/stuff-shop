@@ -4,7 +4,6 @@ import Home from "../Home/Home";
 import { ROUTES } from "../../utils/routes";
 import SingleProduct from "../Product/SingleProduct";
 import Profile from "../Profile/Profile";
-import Category from "../Categories/Category";
 import SingleCategory from "../Categories/SingleCategory";
 import Cart from "../Cart/Cart";
 

@@ -19,7 +19,7 @@ const Sidebar = () => {
       <div className={styles.title}>Categories</div>
       <nav>
         <ul className={styles.menu}>
-          {list.slice(0, 5).map((item) => (
+          {list.slice(0, 7).map((item) => (
             <li key={item.id}>
               <NavLink
                 to={`/categories/${item.id}`}

@@ -106,7 +106,7 @@ const Category = () => {
           <span>Price to</span>
         </div>
 
-        <button type="submit" hidden />
+        <button type="submit">Apply filters</button>
       </form>
 
       {isLoading ? (

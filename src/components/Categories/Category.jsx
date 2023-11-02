@@ -20,7 +20,7 @@ const Category = () => {
 
   const defaultParams = {
     categoryId: id,
-    limit: 5,
+    limit: 10,
     offset: 0,
     ...defaultValues,
   };

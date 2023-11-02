@@ -7,7 +7,7 @@ import { ROUTES } from "../../utils/routes";
 
 import LOGO from "../../images/logo.svg";
 
-import AVATAR from "../../images/avatar.jpg";
+import AVATAR from "../../images/png-clipart-computer-icons-service-avatar-user-guest-house-gaulish-language-purple-service.png";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleForm } from "../../features/user/userSlice";
 import { useGetProductsQuery } from "../../features/api/apiSlice";

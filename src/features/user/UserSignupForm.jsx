@@ -91,7 +91,7 @@ const UserSignupForm = ({ closeForm, toggleCurrentFormType }) => {
           <input
             className={`${errors.avatar && styles.error}`}
             type="avatar"
-            placeholder="Your avatar"
+            placeholder="Your avatar URL"
             name="avatar"
             value={values.avatar}
             autoComplete="off"
